@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css'; // Import the CSS
 import AddPort from './components/AddCIP'; // Import AddPort Component
 import DisplayPort from './components/DisplayCIP'; // Import DisplayPort Component
 import axios from 'axios';
-
+import { w3cwebsocket } from 'websocket';
+const client = new w3cwebsocket('ws://127.0.0.1:3001'); 
 function App() {
   const [ports, setPorts] = useState([]); // Store the list of ports
   const [view, setView] = useState(''); // Toggle between 'cen' and 'cip'
@@ -12,6 +13,17 @@ function App() {
   const [selectedPort, setSelectedPort] = useState(''); // Store selected port in CEN view
   const [message, setMessage] = useState(''); // Store message to send in CEN view
 
+  useEffect(() => {
+    client.onopen = () => {
+      console.log('WebSocket client connected');
+    };
+
+    client.onmessage = (message) => {
+      const dataFromServer = JSON.parse(message.data);
+      console.log('Received message:', dataFromServer);
+    };
+
+  }, []);
   // Function to add a new port
   const addPort = async (port) => {
     try {
@@ -20,9 +32,17 @@ function App() {
         name: port.name,
         port: port.portNumber,
       };
-      const res = await axios.post('http://localhost:3001/cips', obj);
-      setPorts(res.data);
-      console.log('res', res);
+      // const res = await axios.post('http://localhost:3001/cips', obj);
+      // setPorts(res.data);
+      // console.log('res', res);
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(
+          JSON.stringify(obj
+          )
+        );
+      } else {
+        console.log('WebSocket is not open. Unable to send message.');
+      }
     } catch (error) {
       console.log('error');
     }

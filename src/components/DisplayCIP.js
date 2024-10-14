@@ -27,6 +27,8 @@ return res;
 }
     }
     getCipDetails();
+    const interval=setInterval(getCipDetails,6000);
+    return ()=>clearInterval(interval);
   },[selectedPortId])
 
   return (
