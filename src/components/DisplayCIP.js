@@ -2,18 +2,12 @@ import React, { useEffect, useState } from 'react';
 import '../DisplayCip.css'; // Import CSS specific to DisplayPort component
 import axios from 'axios';
 
-function DisplayCIP({ ports }) {
-  const [selectedPortId, setSelectedPortId] = useState('');
+function DisplayCIP({ ports ,selectedPort1,setSelectedPort1,selectedPortId, setSelectedPortId}) {
   // const selectedPort = ports.find((port) => port.id === selectedPortId);
-  const[selectedPort,setSelectedPort]=useState()
   useEffect(()=>{
     async function getCipDetails(){
 if(selectedPortId!==""){
 const res=await axios.get('http://localhost:3001/test',{params:{id:selectedPortId}})
-// let equipment=res.data?.equipment.equipmentname?.map(data=>{
-//   return data.name
-// });
-console.log("equipemnt details",res.data)
 let obj={
 id:res.data.id,
 name:res.data.name,
@@ -21,14 +15,14 @@ port:res.data.port,
 equipmentDetails:res.data?.equipment?.equipmentname??[]
 }
 console.log(res,"grateful",obj)
-setSelectedPort(obj)
+setSelectedPort1(obj)
 
 return res;
 }
     }
     getCipDetails();
-    const interval=setInterval(getCipDetails,6000);
-    return ()=>clearInterval(interval);
+    // const interval=setInterval(getCipDetails,6000);
+    // return ()=>clearInterval(interval);
   },[selectedPortId])
 
   return (
@@ -53,12 +47,12 @@ return res;
             ))}
           </select>
 
-          {selectedPort && (
+          {selectedPort1 && (
             <div className="port-info">
               <h3>CIP Information</h3>
-              <p><strong> ID:</strong> {selectedPort.id}</p>
-              <p><strong> Name:</strong> {selectedPort.name}</p>
-              <p><strong>Port Number:</strong> {selectedPort.port}</p>
+              <p><strong> ID:</strong> {selectedPort1.id}</p>
+              <p><strong> Name:</strong> {selectedPort1.name}</p>
+              <p><strong>Port Number:</strong> {selectedPort1.port}</p>
               <p><strong>Equipment Details:</strong></p>
               <>
               <table border="1" style={{ borderCollapse: 'collapse', width: '100%' }}>
@@ -70,7 +64,7 @@ return res;
         </tr>
       </thead>
       <tbody>
-        {selectedPort?.equipmentDetails?.map((item) => (
+        {selectedPort1?.equipmentDetails?.map((item) => (
           <tr key={item.name} style={{backgroundColor:"white"}}>
             <td>{item.name}</td>
             <td>{item.type}</td>
