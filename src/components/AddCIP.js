@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../AddCip.css'; // Import CSS specific to AddPort component
 
-function AddCIP({ addPort }) {
+function AddCIP({ addPort,addNodeType }) {
   const [portId, setPortId] = useState('');
   const [name, setName] = useState('');
   const [portNumber, setPortNumber] = useState('');
@@ -20,7 +20,7 @@ function AddCIP({ addPort }) {
 
   return (
     <div className="form-container">
-      <h4>Add New CIP</h4>
+      <h4>{addNodeType==='MQTT'&&'Add CIP Using MQTT'} {addNodeType==='GRPC'&&'Add CIP Using GRPC'}</h4>
       <form onSubmit={handleSubmit}>
         <label htmlFor="portId"> ID: </label>
         <input

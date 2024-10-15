@@ -4,13 +4,13 @@ import AddPort from './components/AddCIP'; // Import AddPort Component
 import DisplayPort from './components/DisplayCIP'; // Import DisplayPort Component
 import axios from 'axios';
 import { w3cwebsocket } from 'websocket';
-const client = new w3cwebsocket('ws://127.0.0.1:8081'); 
+const client = new w3cwebsocket('wss://127.0.0.1:8081'); 
 function App() {
   const [selectedPortId, setSelectedPortId] = useState('');
   const [ports, setPorts] = useState([]); // Store the list of ports
   const [cipView, setCipView] = useState(null); // Toggle between 'add' and 'display' for CIP
   const[selectedPort1,setSelectedPort1]=useState()
-  
+  const[addNodeType,setAddNodeType]=useState('')
   useEffect(() => {
     client.onopen = () => {
       console.log('WebSocket client connected');
@@ -42,7 +42,7 @@ function App() {
         name: port.name,
         port: port.portNumber,
       };
-      const res = await axios.post('http://localhost:3001/cips', obj);
+      const res = await axios.post('https://localhost:3001/cips', obj);
       setPorts(res.data);
       console.log('res', res);
       if (client.readyState === WebSocket.OPEN) {
@@ -68,9 +68,10 @@ function App() {
       <div className="content-container">
           <div style={{display:'flex',flexDirection:'column'}}>
             <div className="button-group">
-              <button className="btn" onClick={() => setCipView('add')}>Add Node</button>
+              <button className="btn" onClick={() => {setCipView('add');setAddNodeType('GRPC')}}>Add Node using GRPC</button>
+              <button className="btn" onClick={() => {setCipView('add');setAddNodeType('MQTT')}}>Add Node using MQTT</button>
             </div>
-            {cipView === 'add' && <AddPort addPort={addPort} />}
+            {cipView === 'add'&&addNodeType!=='' && <AddPort  addNodeType={addNodeType}addPort={addPort} />}
             {ports?.length!==0 && <DisplayPort ports={ports} selectedPort1={selectedPort1} setSelectedPort1={setSelectedPort1} selectedPortId={selectedPortId} setSelectedPortId={setSelectedPortId} />}
           </div>
       </div>

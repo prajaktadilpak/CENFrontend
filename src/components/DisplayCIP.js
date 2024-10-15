@@ -6,7 +6,7 @@ function DisplayCIP({ ports ,selectedPort1,setSelectedPort1,selectedPortId, setS
   useEffect(()=>{
     async function getCipDetails(){
 if(selectedPortId!==""){
-const res=await axios.get('http://localhost:3001/test',{params:{id:selectedPortId}})
+const res=await axios.get('https://localhost:3001/test',{params:{id:selectedPortId}})
 let obj={
 id:res.data.id,
 name:res.data.name,
@@ -26,7 +26,7 @@ return res;
     <div className="display-container">
       <h4>CIP List</h4>
    
-     <div style={{display:'flex',overflow:'auto',height:'220px',paddingRight:'2px'
+     <div style={{display:'flex',paddingRight:'2px'
      }}>
       {ports.length === 0 ? (
         <p>No cips available.</p>
