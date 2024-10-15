@@ -3,7 +3,6 @@ import '../DisplayCip.css'; // Import CSS specific to DisplayPort component
 import axios from 'axios';
 
 function DisplayCIP({ ports ,selectedPort1,setSelectedPort1,selectedPortId, setSelectedPortId}) {
-  // const selectedPort = ports.find((port) => port.id === selectedPortId);
   useEffect(()=>{
     async function getCipDetails(){
 if(selectedPortId!==""){
@@ -21,35 +20,42 @@ return res;
 }
     }
     getCipDetails();
-    // const interval=setInterval(getCipDetails,6000);
-    // return ()=>clearInterval(interval);
   },[selectedPortId])
 
   return (
     <div className="display-container">
-      <h2>Display CIP Information</h2>
-
+      <h4>CIP List</h4>
+   
+     <div style={{display:'flex',overflow:'auto',height:'220px',paddingRight:'2px'
+     }}>
       {ports.length === 0 ? (
         <p>No cips available.</p>
       ) : (
         <>
-          <label htmlFor="port-select">Select Port ID:</label>
-          <select
-            id="port-select"
-            value={selectedPortId}
-            onChange={(e) => setSelectedPortId(e.target.value)}
-          >
-            <option value="">-- Select Port --</option>
-            {ports.map((port, index) => (
-              <option key={index} value={port.id}>
-                {port.id}
-              </option>
-            ))}
-          </select>
-
+          <table border="1" style={{ borderCollapse: 'collapse', width: '100%' }}>
+      <thead>
+        <tr style={{backgroundColor:"lightblue"}}>
+          <th>ID</th>
+          <th>Name</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {ports?.map((item) => (
+          <tr key={item.id} style={{backgroundColor:"white"}}>
+            <td>{item.id}</td>
+            <td>{item.name}</td>
+            <td><button type="submit" className="btn-submit" onClick={()=>setSelectedPortId(item.id)}>View Details</button></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
           {selectedPort1 && (
             <div className="port-info">
-              <h3>CIP Information</h3>
+              <div style={{width:'100%',display:'flex',justifyContent:'flex-end',padding:'0px'}}>
+              <button  onClick={() => {setSelectedPortId('')}} style={{ color:'black', background: 'transparent', border: 'black', cursor: 'pointer', fontSize: '12px',width:'10%' }}> &#x2715; </button>
+              </div>
+              <h4>CIP Information</h4>
               <p><strong> ID:</strong> {selectedPort1.id}</p>
               <p><strong> Name:</strong> {selectedPort1.name}</p>
               <p><strong>Port Number:</strong> {selectedPort1.port}</p>
@@ -79,6 +85,7 @@ return res;
           )}
         </>
       )}
+      </div>
     </div>
   );
 }

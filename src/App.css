@@ -2,6 +2,7 @@
   font-family: Arial, sans-serif;
   text-align: center;
   padding: 20px;
+  min-height:100%;
 }
 
 h1 {
@@ -29,7 +30,7 @@ h1 {
 }
 
 .content-container {
-  margin-top: 20px;
+  margin-top: 10px;
   display: flex;
   justify-content: center;
   align-items: center;

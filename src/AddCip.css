@@ -1,24 +1,33 @@
 .form-container {
     background-color: #f9f9f9;
-    padding: 2%;
+    padding: 1%;
+    padding-top:6px;
     width:100%;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
-  
-  h2 {
-    margin-bottom: 15px;
+  h3{
+    margin-top:4px;
+  }
+  h4 {
+    margin-bottom: 6px;
+    margin-top:4px;
     /* color: #007bff; */
   }
-  
+  input{
+    height:20px;
+    padding-top:3px;
+    padding-bottom: 3px;
+  }
   form {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 10px;
   }
   
   label {
     font-weight: bold;
+    font-size: medium;
   }
   
   input {
@@ -26,18 +35,19 @@
     border: 1px solid #ccc;
     border-radius: 5px;
   }
+  label{
+    padding-top:8px;
+  }
   
   .btn-submit {
-    padding: 10px 15px;
+    padding: 8px 15px;
     background-color:#007bff ;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-    margin-top:2%;
-    margin-bottom:4%;
-    
+    margin-bottom:1%;
   }
   
   .btn-submit:hover {

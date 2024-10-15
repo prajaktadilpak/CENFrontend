@@ -1,11 +1,18 @@
 .display-container {
-    background-color: #f9f9f9;
-    padding: 2%;
-    width:100%;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 1%;
+     margin-top:2%;
   }
-  
+  .btn-submit {
+    padding: 10px 15px;
+    background-color:#007bff ;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top:2px;
+    transition: background-color 0.3s;
+    margin-bottom:1%;
+  }
   h2 {
     margin-bottom: 15px;
     /* color: #007bff; */
@@ -26,8 +33,12 @@
   .port-info {
     background-color: #e9ecef;
     padding: 15px;
+    padding-top:6px;
+    padding-right: 8px;
     border-radius: 5px;
-    margin-top: 10px;
+    margin-left:20px;
+    height:fit-content;
+
   }
   
   .port-info h3 {

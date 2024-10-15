@@ -20,9 +20,9 @@ function AddCIP({ addPort }) {
 
   return (
     <div className="form-container">
-      <h2>Add New CIP</h2>
+      <h4>Add New CIP</h4>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="portId"> ID:</label>
+        <label htmlFor="portId"> ID: </label>
         <input
           type="text"
           id="portId"
@@ -31,7 +31,7 @@ function AddCIP({ addPort }) {
           placeholder="Enter ID"
         />
 
-        <label htmlFor="name"> Name:</label>
+        <label htmlFor="name"> Name: </label>
         <input
           type="text"
           id="name"
@@ -39,7 +39,7 @@ function AddCIP({ addPort }) {
           onChange={(e) => setName(e.target.value)}
           placeholder="Enter  name"
         />
-        <label htmlFor="port"> Port:</label>
+        <label htmlFor="port"> Port: </label>
         <input
           type="text"
           id="name"

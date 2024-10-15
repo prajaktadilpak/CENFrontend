@@ -6,14 +6,11 @@ import axios from 'axios';
 import { w3cwebsocket } from 'websocket';
 const client = new w3cwebsocket('ws://127.0.0.1:8081'); 
 function App() {
-  const [ports, setPorts] = useState([]); // Store the list of ports
-  const [view, setView] = useState(''); // Toggle between 'cen' and 'cip'
-  const [showMessageForm, setShowMessageForm] = useState(false); // Toggle for CEN message form
-  const [cipView, setCipView] = useState(null); // Toggle between 'add' and 'display' for CIP
-  const [selectedPort, setSelectedPort] = useState(''); // Store selected port in CEN view
-  const [message, setMessage] = useState(''); // Store message to send in CEN view
-  const[selectedPort1,setSelectedPort1]=useState()
   const [selectedPortId, setSelectedPortId] = useState('');
+  const [ports, setPorts] = useState([]); // Store the list of ports
+  const [cipView, setCipView] = useState(null); // Toggle between 'add' and 'display' for CIP
+  const[selectedPort1,setSelectedPort1]=useState()
+  
   useEffect(() => {
     client.onopen = () => {
       console.log('WebSocket client connected');
@@ -31,9 +28,12 @@ function App() {
         }
       setSelectedPort1(obj)
       }
+      if(selectedPortId===''){
+        console.log("data2")
+        setSelectedPort1()
+      }
     };
-
-  }, []);
+  }, [selectedPortId]);
   // Function to add a new port
   const addPort = async (port) => {
     try {
@@ -52,6 +52,7 @@ function App() {
           
         );
         setSelectedPort1()
+        setSelectedPortId('')
 
       } else {
         console.log('WebSocket is not open. Unable to send message.');
@@ -61,75 +62,17 @@ function App() {
     }
   };
 
-  const sendMessage = async () => {
-    try {
-      setMessage('');
-    } catch (error) {
-      console.log('Error sending message');
-    }
-  };
-
   return (
     <div className="app-container">
       <h2>Central Equipment Network</h2>
-      <h4>{view === 'cip' ? 'CIP' : view === 'cen' ? 'CEN' : 'Select an Option'}</h4>
-
-      <div className="button-group">
-        <button className="btn" onClick={() => { setView('cip'); setCipView(null); setShowMessageForm(false); }}>CIP</button>
-        <button className="btn" onClick={() => { setView('cen'); setShowMessageForm(false); setCipView(null); }}>CEN</button>
-      </div>
-
       <div className="content-container">
-        {view === 'cip' && (
-          <div style={{display:'flex',flexDirection:'column',width:'40%'}}>
+          <div style={{display:'flex',flexDirection:'column'}}>
             <div className="button-group">
-              <button className="btn" onClick={() => setCipView('add')}>Add CIP</button>
-              <button className="btn" onClick={() => setCipView('display')}>CIP Details</button>
+              <button className="btn" onClick={() => setCipView('add')}>Add Node</button>
             </div>
-
             {cipView === 'add' && <AddPort addPort={addPort} />}
-
-            {cipView === 'display' && <DisplayPort ports={ports} selectedPort1={selectedPort1} setSelectedPort1={setSelectedPort1} selectedPortId={selectedPortId} setSelectedPortId={setSelectedPortId} />}
+            {ports?.length!==0 && <DisplayPort ports={ports} selectedPort1={selectedPort1} setSelectedPort1={setSelectedPort1} selectedPortId={selectedPortId} setSelectedPortId={setSelectedPortId} />}
           </div>
-        )}
-
-        {view === 'cen' && (
-           <div style={{display:'flex',flexDirection:'column',width:'30%'}}>
-            {!showMessageForm && (
-              <button className="btn" onClick={() => setShowMessageForm(true)}>Send Message</button>
-            )}
-
-            {showMessageForm && (
-              <div className="cen-view">
-                <h2>Send Message to CIP</h2>
-                <div>
-                  <label>Select CIP:</label>
-                  <select
-                    value={selectedPort}
-                    onChange={(e) => setSelectedPort(e.target.value)}
-                  >
-                    <option value="">Select a port</option>
-                    {ports.map((port) => (
-                      <option key={port.id} value={port.id}>
-                        {port.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <div  style={{display:'flex',flexDirection:'column'}}>
-                  <label>Message:</label>
-                  <input
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                  />
-                  </div>
-                </div>
-                <button className="btn" onClick={sendMessage}>Send Message</button>
-              </div>
-            )}
-       </div>
-        )}
       </div>
     </div>
   );
