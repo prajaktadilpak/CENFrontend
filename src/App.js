@@ -47,9 +47,7 @@ function App() {
       console.log('res', res);
       if (client.readyState === WebSocket.OPEN) {
         client.send(
-          JSON.stringify(obj
-          )
-          
+         addNodeType
         );
         setSelectedPort1()
         setSelectedPortId('')
