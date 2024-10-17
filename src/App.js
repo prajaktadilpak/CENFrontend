@@ -41,6 +41,7 @@ function App() {
         id: port.portId,
         name: port.name,
         port: port.portNumber,
+        ipAddress:port.ipAddress
       };
       const res = await axios.post('https://localhost:3001/cips', obj);
       setPorts(res.data);
@@ -66,10 +67,9 @@ function App() {
       <div className="content-container">
           <div style={{display:'flex',flexDirection:'column'}}>
             <div className="button-group">
-              <button className="btn" onClick={() => {setCipView('add');setAddNodeType('GRPC')}}>Add Node using GRPC</button>
-              <button className="btn" onClick={() => {setCipView('add');setAddNodeType('MQTT')}}>Add Node using MQTT</button>
+              <button className="btn" onClick={() => {setCipView('add')}}>Add Node</button>
             </div>
-            {cipView === 'add'&&addNodeType!=='' && <AddPort  addNodeType={addNodeType}addPort={addPort} />}
+            {cipView === 'add'&& <AddPort  addNodeType={addNodeType}addPort={addPort} />}
             {ports?.length!==0 && <DisplayPort ports={ports} selectedPort1={selectedPort1} setSelectedPort1={setSelectedPort1} selectedPortId={selectedPortId} setSelectedPortId={setSelectedPortId} />}
           </div>
       </div>

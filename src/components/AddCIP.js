@@ -5,12 +5,12 @@ function AddCIP({ addPort,addNodeType }) {
   const [portId, setPortId] = useState('');
   const [name, setName] = useState('');
   const [portNumber, setPortNumber] = useState('');
-
+  const[ipAddress,setIpAddress]=useState('')
   const handleSubmit = (e) => {
     e.preventDefault();
     
     if (portId && name) {
-      addPort({ portId, name,portNumber }); // Call parent method to add the port
+      addPort({ portId, name,portNumber,ipAddress }); // Call parent method to add the port
 
       setPortId('');
       setName(''); // Clear the form after submission
@@ -47,7 +47,14 @@ function AddCIP({ addPort,addNodeType }) {
           onChange={(e) => setPortNumber(e.target.value)}
           placeholder="Enter port number"
         />
-
+<label htmlFor="port"> IP Address: </label>
+        <input
+          type="text"
+          id="name"
+          value={ipAddress}
+          onChange={(e) => setIpAddress(e.target.value)}
+          placeholder="Enter IP Adress"
+        />
         <button type="submit" className="btn-submit">Add CIP</button>
       </form>
     </div>
