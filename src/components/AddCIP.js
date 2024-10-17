@@ -15,6 +15,7 @@ function AddCIP({ addPort,addNodeType }) {
       setPortId('');
       setName(''); // Clear the form after submission
       setPortNumber('')
+      setIpAddress('')
     }
   };
 
