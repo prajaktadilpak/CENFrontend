@@ -60,7 +60,10 @@ function App() {
       console.log('error');
     }
   };
-
+useEffect(async()=>{
+const res=await axios.get('https://localhost:3000/cips')
+setPorts(res)
+},[])
   return (
     <div className="app-container">
       <h2>Central Equipment Network</h2>
