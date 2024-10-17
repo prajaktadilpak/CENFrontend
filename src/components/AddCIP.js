@@ -40,14 +40,7 @@ function AddCIP({ addPort,addNodeType }) {
           onChange={(e) => setName(e.target.value)}
           placeholder="Enter  name"
         />
-        <label htmlFor="port"> Port: </label>
-        <input
-          type="text"
-          id="name"
-          value={portNumber}
-          onChange={(e) => setPortNumber(e.target.value)}
-          placeholder="Enter port number"
-        />
+        
 <label htmlFor="port"> IP Address: </label>
         <input
           type="text"

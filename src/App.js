@@ -23,7 +23,7 @@ function App() {
       let obj={
         id:dataFromServer.id,
         name:dataFromServer.name,
-        port:dataFromServer.port,
+        ipAddress:dataFromServer.ip,
         equipmentDetails:dataFromServer?.equipment?.equipmentname??[]
         }
       setSelectedPort1(obj)
@@ -60,10 +60,10 @@ function App() {
       console.log('error');
     }
   };
-const getAllPorts=async()=>{
+useEffect(async()=>{
 const res=await axios.get('http://localhost:3001/cips')
 setPorts(res?.data??[])
-}
+},[])
   return (
     <div className="app-container">
       <h2>Central Equipment Network</h2>
@@ -71,7 +71,6 @@ setPorts(res?.data??[])
           <div style={{display:'flex',flexDirection:'column'}}>
             <div className="button-group">
               <button className="btn" onClick={() => {setCipView('add')}}>Add Node</button>
-              <button className="btn" onClick={ getAllPorts}>Get All CIPS</button>
             </div>
             {cipView === 'add'&& <AddPort  addNodeType={addNodeType}addPort={addPort} />}
             {ports?.length!==0 && <DisplayPort ports={ports} selectedPort1={selectedPort1} setSelectedPort1={setSelectedPort1} selectedPortId={selectedPortId} setSelectedPortId={setSelectedPortId} />}

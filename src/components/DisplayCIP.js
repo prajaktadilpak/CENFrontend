@@ -10,7 +10,7 @@ const res=await axios.get('http://localhost:3001/test',{params:{id:selectedPortI
 let obj={
 id:res.data.id,
 name:res.data.name,
-port:res.data.port,
+ipAddress:res.data.ip,
 equipmentDetails:res.data?.equipment?.equipmentname??[]
 }
 console.log(res,"grateful",obj)
@@ -26,7 +26,7 @@ return res;
     <div className="display-container">
       <h4>CIP List</h4>
    
-     <div style={{display:'flex',paddingRight:'2px'
+     <div style={{display:'flex',paddingRight:'2px',width:'100%'
      }}>
       {ports?.length === 0 ? (
         <p>No cips available.</p>
@@ -58,7 +58,6 @@ return res;
               <h4>CIP Information</h4>
               <p><strong> ID:</strong> {selectedPort1.id}</p>
               <p><strong> Name:</strong> {selectedPort1.name}</p>
-              <p><strong>Port Number:</strong> {selectedPort1.port}</p>
               <p><strong>Equipment Details:</strong></p>
               <>
               <table border="1" style={{ borderCollapse: 'collapse', width: '100%' }}>
