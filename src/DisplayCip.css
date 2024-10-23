@@ -13,6 +13,17 @@
     transition: background-color 0.3s;
     margin-bottom:1%;
   }
+  .btn-tip {
+    padding: 10px 15px;
+    background-color:white ;
+    color: black;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top:2px;
+    transition: background-color 0.3s;
+    margin-bottom:1%;
+  }
   h2 {
     margin-bottom: 15px;
     /* color: #007bff; */
